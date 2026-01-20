@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import secureRoute from './routes/secure.routes.js';
+import secureRoute from './routes/secure.route.js';
 import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 
