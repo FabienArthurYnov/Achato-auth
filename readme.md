@@ -36,7 +36,7 @@ POST
 GET
 
 
-/api/user : créer un utilisateur ou getAll utilisateurs
+/api/users : créer un utilisateur ou getAll utilisateurs
 GET
 POST
 ```
@@ -50,7 +50,7 @@ POST
 }
 ```
 
-/api/user/:id : get, update (put) ou delete (delete) un utilisateur
+/api/users/:id : get, update (put) ou delete (delete) un utilisateur
 GET
 PUT 
 ```

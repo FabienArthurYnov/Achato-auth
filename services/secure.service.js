@@ -53,7 +53,11 @@ export const secureService = {
     }
 
     const payload = {
-      userId: user.id,
+      User_Id: user.User_Id,
+      User_FirstName: user.User_FirstName,
+      User_LastName: user.User_LastName,
+      User_Phone: user.User_Phone,
+      User_Role: user.User_Role,
       User_Email: user.User_Email,
     };
 

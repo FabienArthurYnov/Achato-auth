@@ -2,6 +2,7 @@ import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { secureService } from '../services/secure.service.js';
 import { User } from '../models/user.model.js';
+import { env } from '../config/env.js';
 
 
 const registerSchema = Joi.object({
@@ -76,7 +77,7 @@ export const secureController = {
 
       const token = secureHeader.split(' ')[1];
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, env.jwt.secret);
 
       return res.json({
         valid: true,
