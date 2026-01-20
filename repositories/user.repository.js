@@ -5,20 +5,24 @@ export const userRepository = {
     return User.findAll();
   },
 
-  findById: async (id) => {
-    return User.findByPk(id);
+  findById: async (User_Id) => {
+    return User.findByPk(User_Id);
   },
 
-  findByEmail: async (email) => {
-    return User.findOne({ where: { email } });
+  findByEmail: async (User_Email) => {
+    return User.findOne({ where: { User_Email } });
   },
 
-  findByUsername: async (username) => {
-    return User.findOne({ where: { username } });
+  findByFirstName: async (User_FirstName) => {
+    return User.findOne({ where: { User_FirstName } });
   },
 
-  create: async ({ username, email, password }) => {
-    return User.create({ username, email, password });
+  findByLastName: async (User_LastName) => {
+    return User.findOne({ where: { User_LastName } });
+  },
+
+  create: async ({ User_FirstName, User_LastName, User_Phone, User_Role, User_Password, User_Email }) => {
+    return User.create({ User_FirstName, User_LastName, User_Phone, User_Role, User_Password, User_Email });
   },
 
   update: async (user, data) => {

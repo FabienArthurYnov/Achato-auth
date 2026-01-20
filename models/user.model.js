@@ -5,27 +5,43 @@ export class User extends Model {}
 
 User.init(
   {
-    id: {
+    User_Id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    username: {
-      type: DataTypes.STRING(50),
+    User_FirstName: {
+      type: DataTypes.STRING(80),
       allowNull: false,
-      unique: true,
+      unique: false,
     },
-    email: {
-      type: DataTypes.STRING(255),
+    User_LastName: {
+      type: DataTypes.STRING(80),
+      allowNull: false,
+      unique: false,
+    },
+    User_Phone: {
+      type: DataTypes.STRING(80),
+      allowNull: false,
+      unique: false,
+    },
+    User_Role: {
+      type: DataTypes.STRING(80),
+      allowNull: false,
+      unique: false,
+    },
+    User_Password: {
+      type: DataTypes.STRING(80),
+      allowNull: false,
+      unique: false,
+    },
+    User_Email: {
+      type: DataTypes.STRING(80),
       allowNull: false,
       unique: true,
       validate: {
         isEmail: true,
       },
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
     },
   },
   {

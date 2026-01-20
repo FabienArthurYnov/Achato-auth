@@ -2,7 +2,7 @@ import { userRepository } from '../repositories/user.repository.js';
 import { hashPassword } from '../utils/password.js';
 
 export const userService = {
-  createUser: async ({ username, email, password }) => {
+  createUser: async ({ firstName, lastName, phone, role, password, email }) => {
     const existingEmail = await userRepository.findByEmail(email);
     if (existingEmail) {
       const error = new Error('Email already used');
@@ -10,17 +10,13 @@ export const userService = {
       throw error;
     }
 
-    const existingUsername = await userRepository.findByUsername(username);
-    if (existingUsername) {
-      const error = new Error("Username already used");
-      error.status = 409;
-      throw error;
-    }
-
     const passwordHash = await hashPassword(password);
 
     const user = await userRepository.create({
-      username,
+      firstName,
+      lastName,
+      phone,
+      role,
       email,
       password: passwordHash,
     });
@@ -59,16 +55,6 @@ export const userService = {
       const existingEmail = await userRepository.findByEmail(data.email);
       if (existingEmail && existingEmail.id !== user.id) {
         const error = new Error('Email already used');
-        error.status = 409;
-        throw error;
-      }
-    }
-
-    // Unique username
-    if (data.username && data.username !== user.username) {
-      const existingUsername = await userRepository.findByUsername(data.username);
-      if (existingUsername && existingUsername.id !== user.id) {
-        const error = new Error("Username already used");
         error.status = 409;
         throw error;
       }
