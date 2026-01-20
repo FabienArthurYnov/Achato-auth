@@ -21,7 +21,6 @@ const loginSchema = Joi.object({
 export const secureController = {
   register: async (req, res, next) => {
     try {
-      console.log('req.body:', req.body);
       const { error, value } = registerSchema.validate(req.body);
       if (error) {
         return res.status(400).json({ message: error.message });

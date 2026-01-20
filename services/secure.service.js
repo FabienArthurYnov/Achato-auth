@@ -3,33 +3,33 @@ import { hashPassword, comparePassword } from '../utils/password.js';
 import { generateAccessToken } from '../utils/jwt.js';
 
 export const secureService = {
-  register: async ({ firstName, lastName, phone, role, password, email }) => {
+  register: async ({ User_FirstName, User_LastName, User_Phone, User_Role, User_Password, User_Email }) => {
     // Vérifier si l'email existe déjà
-    const existingByEmail = await userRepository.findByEmail(email);
+    const existingByEmail = await userRepository.findByEmail(User_Email);
     if (existingByEmail) {
       const error = new Error('Email already used');
       error.status = 409;
       throw error;
     }
 
-    const passwordHash = await hashPassword(password);
+    const passwordHash = await hashPassword(User_Password);
 
     const user = await userRepository.create({
-      firstName,
-      lastName,
-      phone,
-      role,
-      password: passwordHash,
-      email,
+      User_FirstName,
+      User_LastName,
+      User_Phone,
+      User_Role,
+      User_Password: passwordHash,
+      User_Email,
     });
 
     const payload = {
-      userId: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      phone: user.phone,
-      role: user.role,
-      email: user.email,
+      User_Id: user.User_Id,
+      User_FirstName: user.User_FirstName,
+      User_LastName: user.User_LastName,
+      User_Phone: user.User_Phone,
+      User_Role: user.User_Role,
+      User_Email: user.User_Email,
     };
 
     const accessToken = generateAccessToken(payload);
@@ -37,8 +37,8 @@ export const secureService = {
     return { user, accessToken };
   },
 
-  login: async ({ email, password }) => {
-    let user = await userRepository.findByEmail(email);
+  login: async ({ User_Email, User_Password }) => {
+    let user = await userRepository.findByEmail(User_Email);
 
     if (!user) {
       const error = new Error('No user found with this email');
@@ -46,7 +46,7 @@ export const secureService = {
       throw error;
     }
 
-    const isValid = await comparePassword(password, user.password);
+    const isValid = await comparePassword(User_Password, user.User_Password);
     if (!isValid) {
       const error = new Error('Wrong credentials');
       error.status = 401;
@@ -55,7 +55,7 @@ export const secureService = {
 
     const payload = {
       userId: user.id,
-      email: user.email,
+      User_Email: user.User_Email,
     };
 
     const accessToken = generateAccessToken(payload);
