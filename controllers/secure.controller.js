@@ -28,7 +28,7 @@ export const secureController = {
 
       const { User_FirstName, User_LastName, User_Phone, User_Role, User_Email, User_Password } = value;
 
-      const result = await secureService.register({ firstName: User_FirstName, lastName: User_LastName, phone: User_Phone, role: User_Role, email: User_Email, password: User_Password });
+      const result = await secureService.register({ User_FirstName, User_LastName, User_Phone, User_Role, User_Email, User_Password });
 
       return res.status(201).json({
         user: {

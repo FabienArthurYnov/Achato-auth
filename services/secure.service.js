@@ -4,7 +4,6 @@ import { generateAccessToken } from '../utils/jwt.js';
 
 export const secureService = {
   register: async ({ User_FirstName, User_LastName, User_Phone, User_Role, User_Password, User_Email }) => {
-    // Vérifier si l'email existe déjà
     const existingByEmail = await userRepository.findByEmail(User_Email);
     if (existingByEmail) {
       const error = new Error('Email already used');
