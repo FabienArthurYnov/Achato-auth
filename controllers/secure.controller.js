@@ -1,36 +1,43 @@
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { secureService } from '../services/secure.service.js';
+import { User } from '../models/user.model.js';
 
 
 const registerSchema = Joi.object({
-  username: Joi.string().min(3).max(50).required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).max(255).required(),
+  User_FirstName: Joi.string().min(2).max(50).required(),
+  User_LastName: Joi.string().min(2).max(50).required(),
+  User_Phone: Joi.string().min(10).max(15).required(),
+  User_Role: Joi.string().min(0).max(50).required(),
+  User_Email: Joi.string().email().required(),
+  User_Password: Joi.string().min(6).max(80).required(),
 });
 
 const loginSchema = Joi.object({
-  identifier: Joi.string().required(),
-  password: Joi.string().min(6).max(255).required(),
+  User_Email: Joi.string().email().required(),
+  User_Password: Joi.string().min(6).max(80).required(),
 });
 
 export const secureController = {
   register: async (req, res, next) => {
     try {
+      console.log('req.body:', req.body);
       const { error, value } = registerSchema.validate(req.body);
       if (error) {
         return res.status(400).json({ message: error.message });
       }
 
-      const { username, email, password } = value;
+      const { User_FirstName, User_LastName, User_Phone, User_Role, User_Email, User_Password } = value;
 
-      const result = await secureService.register({ username, email, password });
+      const result = await secureService.register({ firstName: User_FirstName, lastName: User_LastName, phone: User_Phone, role: User_Role, email: User_Email, password: User_Password });
 
       return res.status(201).json({
         user: {
-          id: result.user.id,
-          username: result.user.username,
-          email: result.user.email,
+          User_FirstName: result.user.User_FirstName,
+          User_LastName: result.user.User_LastName,
+          User_Phone: result.user.User_Phone,
+          User_Role: result.user.User_Role,
+          User_Email: result.user.User_Email,
         },
         accessToken: result.accessToken,
       });
@@ -46,15 +53,13 @@ export const secureController = {
         return res.status(400).json({ message: error.message });
       }
 
-      const { identifier, password } = value;
+      const { User_Email, User_Password } = value;
 
-      const result = await secureService.login({ identifier, password });
+      const result = await secureService.login({ User_Email, User_Password });
 
       return res.status(200).json({
         user: {
-          id: result.user.id,
-          username: result.user.username,
-          email: result.user.email,
+          email: result.user.User_Email,
         },
         accessToken: result.accessToken,
       });
@@ -77,9 +82,8 @@ export const secureController = {
       return res.json({
         valid: true,
         user: {
-          id: decoded.id,
-          email: decoded.email,
-          username: decoded.username,
+          User_Id: decoded.User_Id,
+          User_Email: decoded.User_Email,
         },
       });
     } catch (error) {

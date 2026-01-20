@@ -12,14 +12,6 @@ export const secureService = {
       throw error;
     }
 
-    // Vérifier si le username existe déjà
-    const existingByUsername = await userRepository.findByUsername(username);
-    if (existingByUsername) {
-      const error = new Error('Username already used');
-      error.status = 409;
-      throw error;
-    }
-
     const passwordHash = await hashPassword(password);
 
     const user = await userRepository.create({
@@ -63,7 +55,6 @@ export const secureService = {
 
     const payload = {
       userId: user.id,
-      username: user.username,
       email: user.email,
     };
 

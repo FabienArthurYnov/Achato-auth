@@ -2,15 +2,21 @@ import Joi from 'joi';
 import { userService } from '../services/user.service.js';
 
 const createUserSchema = Joi.object({
-  username: Joi.string().min(3).max(50).required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().min(6).max(255).required(),
+  User_FirstName: Joi.string().min(2).max(50).required(),
+  User_LastName: Joi.string().min(2).max(50).required(),
+  User_Phone: Joi.string().min(10).max(15).required(),
+  User_Role: Joi.string().min(0).max(50).required(),
+  User_Email: Joi.string().email().required(),
+  User_Password: Joi.string().min(6).max(80).required(),
 });
 
 const updateUserSchema = Joi.object({
-  username: Joi.string().min(3).max(50),
-  email: Joi.string().email(),
-  password: Joi.string().min(6).max(255),
+  User_FirstName: Joi.string().min(2).max(50).required(),
+  User_LastName: Joi.string().min(2).max(50).required(),
+  User_Phone: Joi.string().min(10).max(15).required(),
+  User_Role: Joi.string().min(0).max(50).required(),
+  User_Email: Joi.string().email().required(),
+  User_Password: Joi.string().min(6).max(80).required(),
 }).min(1); 
 
 export const userController = {
@@ -25,10 +31,12 @@ export const userController = {
       const user = await userService.createUser(value);
 
       return res.status(201).json({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        createdAt: user.createdAt,
+        id: user.User_Id,
+        firstName: user.User_FirstName,
+        lastName: user.User_LastName,
+        phone: user.User_Phone,
+        role: user.User_Role,
+        email: user.User_Email,
       });
     } catch (err) {
       next(err);
@@ -42,9 +50,11 @@ export const userController = {
 
       const payload = users.map((u) => ({
         id: u.id,
-        username: u.username,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        phone: u.phone,
+        role: u.role,
         email: u.email,
-        createdAt: u.createdAt,
       }));
 
       return res.status(200).json(payload);
@@ -61,10 +71,11 @@ export const userController = {
 
       return res.status(200).json({
         id: user.id,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phone: user.phone,
+        role: user.role,
         email: user.email,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
       });
     } catch (err) {
       next(err);
@@ -85,10 +96,12 @@ export const userController = {
 
       return res.status(200).json({
         id: updated.id,
-        username: updated.username,
+        firstName: updated.firstName,
+        lastName: updated.lastName,
+        phone: updated.phone,
+        role: updated.role,
         email: updated.email,
-        createdAt: updated.createdAt,
-        updatedAt: updated.updatedAt,
+        password: updated.password,
       });
     } catch (err) {
       next(err);

@@ -6,8 +6,8 @@ export class User extends Model {}
 User.init(
   {
     User_Id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
     },
     User_FirstName: {
@@ -48,6 +48,6 @@ User.init(
     sequelize,
     modelName: 'User',
     tableName: 'users',
-    timestamps: true,
+    timestamps: false,
   }
 );

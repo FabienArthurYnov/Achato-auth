@@ -51,9 +51,9 @@ export const userService = {
     }
 
     // Unique email
-    if (data.email && data.email !== user.email) {
+    if (data.email && data.email !== user.User_Email) {
       const existingEmail = await userRepository.findByEmail(data.email);
-      if (existingEmail && existingEmail.id !== user.id) {
+      if (existingEmail && existingEmail.User_Id !== user.User_Id) {
         const error = new Error('Email already used');
         error.status = 409;
         throw error;
@@ -65,7 +65,16 @@ export const userService = {
       data.password = await hashPassword(data.password);
     }
 
-    const updated = await userRepository.update(user, data);
+    const mappedData = {
+      User_FirstName: data.firstName,
+      User_LastName: data.lastName,
+      User_Phone: data.phone,
+      User_Role: data.role,
+      User_Email: data.email,
+      User_Password: data.password,
+    };
+
+    const updated = await userRepository.update(user, mappedData);
     return updated;
   },
 
