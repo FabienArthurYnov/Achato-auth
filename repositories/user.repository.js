@@ -21,14 +21,14 @@ export const userRepository = {
     return User.findOne({ where: { User_LastName } });
   },
 
-  create: async ({ firstName, lastName, phone, role, password, email }) => {
+  create: async ({ User_FirstName, User_LastName, User_Phone, User_Role, User_Password, User_Email }) => {
     return User.create({
-      User_FirstName: firstName,
-      User_LastName: lastName,
-      User_Phone: phone,
-      User_Role: role,
-      User_Password: password,
-      User_Email: email,
+      User_FirstName: User_FirstName,
+      User_LastName: User_LastName,
+      User_Phone: User_Phone,
+      User_Role: User_Role,
+      User_Password: User_Password,
+      User_Email: User_Email,
     });
   },
 

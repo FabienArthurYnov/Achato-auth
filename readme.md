@@ -7,6 +7,9 @@ By Fabien ARTHUR and Thibaut FIGUEIRA
 
 
 Routes : 
+All routes need service tokens : header [x-service-token]={{put the service token here}}
+Private route needs a Bearer token, given by login or register
+
 /api/secure/login : login un utilisateur
 POST
 ```
@@ -30,10 +33,34 @@ POST
 ```
 
 /api/secure/verify : verify le token d'un utilisateur
-POST
-```
+GET
 
-```
 
 /api/user : créer un utilisateur ou getAll utilisateurs
+GET
+POST
+```
+{
+    "User_FirstName":"Fabien",
+    "User_LastName":"test",
+    "User_Phone":"0120202051",
+    "User_Role": "user",
+    "User_Email":"fabien.test@email.com",
+    "User_Password":"azerty"
+}
+```
+
 /api/user/:id : get, update (put) ou delete (delete) un utilisateur
+GET
+PUT 
+```
+{
+    "User_FirstName":"Fabien",
+    "User_LastName":"test",
+    "User_Phone":"0120202051",
+    "User_Role": "user",
+    "User_Email":"fabien.test@email.com",
+    "User_Password":"azerty"
+}
+```
+DELETE

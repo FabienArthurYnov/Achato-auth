@@ -5,7 +5,7 @@ export const checkServiceToken = (req, res, next) => {
 
   if (!serviceToken || serviceToken !== env.authServiceToken) {
     return res.status(403).json({
-      message: 'Forbidden ; wrong or missing service token.',
+      message: 'Forbidden ; wrong or missing service token. YOU SILLY MINSK',
     });
   }
 

@@ -31,12 +31,11 @@ export const userController = {
       const user = await userService.createUser(value);
 
       return res.status(201).json({
-        id: user.User_Id,
-        firstName: user.User_FirstName,
-        lastName: user.User_LastName,
-        phone: user.User_Phone,
-        role: user.User_Role,
-        email: user.User_Email,
+        User_FirstName: user.User_FirstName,
+        User_LastName: user.User_LastName,
+        User_Phone: user.User_Phone,
+        User_Role: user.User_Role,
+        User_Email: user.User_Email,
       });
     } catch (err) {
       next(err);
@@ -49,12 +48,12 @@ export const userController = {
       const users = await userService.getAllUsers();
 
       const payload = users.map((u) => ({
-        id: u.id,
-        firstName: u.firstName,
-        lastName: u.lastName,
-        phone: u.phone,
-        role: u.role,
-        email: u.email,
+        User_Id: u.User_Id,
+        User_FirstName: u.User_FirstName,
+        User_LastName: u.User_LastName,
+        User_Phone: u.User_Phone,
+        User_Role: u.User_Role,
+        User_Email: u.User_Email,
       }));
 
       return res.status(200).json(payload);
@@ -70,12 +69,12 @@ export const userController = {
       const user = await userService.getUserById(id);
 
       return res.status(200).json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        phone: user.phone,
-        role: user.role,
-        email: user.email,
+        User_Id: user.User_Id,
+        User_FirstName: user.User_FirstName,
+        User_LastName: user.User_LastName,
+        User_Phone: user.User_Phone,
+        User_Role: user.User_Role,
+        User_Email: user.User_Email,
       });
     } catch (err) {
       next(err);
@@ -95,13 +94,12 @@ export const userController = {
       const updated = await userService.updateUser(id, value);
 
       return res.status(200).json({
-        id: updated.id,
-        firstName: updated.firstName,
-        lastName: updated.lastName,
-        phone: updated.phone,
-        role: updated.role,
-        email: updated.email,
-        password: updated.password,
+        User_FirstName: updated.User_FirstName,
+        User_LastName: updated.User_LastName,
+        User_Phone: updated.User_Phone,
+        User_Role: updated.User_Role,
+        User_Email: updated.User_Email,
+        User_Password: updated.User_Password,
       });
     } catch (err) {
       next(err);

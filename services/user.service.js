@@ -2,23 +2,24 @@ import { userRepository } from '../repositories/user.repository.js';
 import { hashPassword } from '../utils/password.js';
 
 export const userService = {
-  createUser: async ({ firstName, lastName, phone, role, password, email }) => {
-    const existingEmail = await userRepository.findByEmail(email);
+  createUser: async ({ User_FirstName, User_LastName, User_Phone, User_Role, User_Password, User_Email }) => {
+    console.log('Creating user with email:', User_Email);
+    const existingEmail = await userRepository.findByEmail(User_Email);
     if (existingEmail) {
       const error = new Error('Email already used');
       error.status = 409;
       throw error;
     }
 
-    const passwordHash = await hashPassword(password);
+    const passwordHash = await hashPassword(User_Password);
 
     const user = await userRepository.create({
-      firstName,
-      lastName,
-      phone,
-      role,
-      email,
-      password: passwordHash,
+      User_FirstName,
+      User_LastName,
+      User_Phone,
+      User_Role,
+      User_Email,
+      User_Password: passwordHash,
     });
 
     return user;
@@ -51,8 +52,8 @@ export const userService = {
     }
 
     // Unique email
-    if (data.email && data.email !== user.User_Email) {
-      const existingEmail = await userRepository.findByEmail(data.email);
+    if (data.User_Email && data.User_Email !== user.User_Email) {
+      const existingEmail = await userRepository.findByEmail(data.User_Email);
       if (existingEmail && existingEmail.User_Id !== user.User_Id) {
         const error = new Error('Email already used');
         error.status = 409;
@@ -61,17 +62,17 @@ export const userService = {
     }
 
     // Hash the password if it's being updated
-    if (data.password) {
-      data.password = await hashPassword(data.password);
+    if (data.User_Password) {
+      data.User_Password = await hashPassword(data.User_Password);
     }
 
     const mappedData = {
-      User_FirstName: data.firstName,
-      User_LastName: data.lastName,
-      User_Phone: data.phone,
-      User_Role: data.role,
-      User_Email: data.email,
-      User_Password: data.password,
+      User_FirstName: data.User_FirstName,
+      User_LastName: data.User_LastName,
+      User_Phone: data.User_Phone,
+      User_Role: data.User_Role,
+      User_Email: data.User_Email,
+      User_Password: data.User_Password,
     };
 
     const updated = await userRepository.update(user, mappedData);
