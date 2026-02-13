@@ -17,7 +17,7 @@ const updateUserSchema = Joi.object({
   User_Role: Joi.string().min(0).max(50).required(),
   User_Email: Joi.string().email().required(),
   User_Password: Joi.string().min(6).max(80).required(),
-}).min(1); 
+}).min(1);
 
 export const userController = {
   // POST /users

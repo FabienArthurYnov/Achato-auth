@@ -6,15 +6,15 @@ import userRoutes from './routes/user.routes.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 
 export const createApp = () => {
-    const app = express();
+  const app = express();
 
-    app.use(cors());
-    app.use(express.json());
+  app.use(cors());
+  app.use(express.json());
 
-    app.use('/api/secure', secureRoute);
-    app.use('/api/users', userRoutes);
+  app.use('/api/secure', secureRoute);
+  app.use('/api/users', userRoutes);
 
-    app.use(errorHandler);
+  app.use(errorHandler);
 
   return app;
-}
+};

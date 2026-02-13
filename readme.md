@@ -4,14 +4,13 @@ Use .env.local, copied from .env with your own parameters
 
 By Fabien ARTHUR and Thibaut FIGUEIRA
 
-
-
-Routes : 
+Routes :
 All routes need service tokens : header [x-service-token]={{put the service token here}}
 Private route needs a Bearer token, given by login or register
 
 /api/secure/login : login un utilisateur
 POST
+
 ```
 {
     "User_Email":"fabien.test@email.com",
@@ -21,6 +20,7 @@ POST
 
 /api/secure/register : register un nouvel utilisateur
 POST
+
 ```
 {
     "User_FirstName":"Fabien",
@@ -35,10 +35,10 @@ POST
 /api/secure/verify : verify le token d'un utilisateur
 GET
 
-
 /api/users : créer un utilisateur ou getAll utilisateurs
 GET
 POST
+
 ```
 {
     "User_FirstName":"Fabien",
@@ -52,7 +52,8 @@ POST
 
 /api/users/:id : get, update (put) ou delete (delete) un utilisateur
 GET
-PUT 
+PUT
+
 ```
 {
     "User_FirstName":"Fabien",
@@ -63,4 +64,5 @@ PUT
     "User_Password":"azerty"
 }
 ```
+
 DELETE

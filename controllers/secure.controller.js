@@ -4,7 +4,6 @@ import { secureService } from '../services/secure.service.js';
 import { User } from '../models/user.model.js';
 import { env } from '../config/env.js';
 
-
 const registerSchema = Joi.object({
   User_FirstName: Joi.string().min(2).max(50).required(),
   User_LastName: Joi.string().min(2).max(50).required(),
@@ -27,9 +26,23 @@ export const secureController = {
         return res.status(400).json({ message: error.message });
       }
 
-      const { User_FirstName, User_LastName, User_Phone, User_Role, User_Email, User_Password } = value;
+      const {
+        User_FirstName,
+        User_LastName,
+        User_Phone,
+        User_Role,
+        User_Email,
+        User_Password,
+      } = value;
 
-      const result = await secureService.register({ User_FirstName, User_LastName, User_Phone, User_Role, User_Email, User_Password });
+      const result = await secureService.register({
+        User_FirstName,
+        User_LastName,
+        User_Phone,
+        User_Role,
+        User_Email,
+        User_Password,
+      });
 
       return res.status(201).json({
         user: {
@@ -88,7 +101,9 @@ export const secureController = {
       });
     } catch (error) {
       console.error('Wrong token on verify :', error.message);
-      return res.status(401).json({ valid: false, message: 'Wrong or expired token.' });
+      return res
+        .status(401)
+        .json({ valid: false, message: 'Wrong or expired token.' });
     }
   },
 };
